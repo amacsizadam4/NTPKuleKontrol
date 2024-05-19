@@ -1,0 +1,3 @@
+eren,ciftci,0
+eren,eren,1
+efe,ciftci,1

@@ -1,0 +1,3 @@
+31,Turkish Airlines,Ankara,İstanbul Havalimanı,2024,2025,Standby,A,B,Boeing
+33,Turkish Airlines,Ankara,İstanbul Havalimanı,2024,2025,Standby,A,B,Boeing
+13,Turkish Airlines,Kars,İstanbul Havalimanı,2024,2025,Standby,A,B,Lockeed martin
