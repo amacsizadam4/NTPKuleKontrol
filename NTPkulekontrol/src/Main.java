@@ -11,8 +11,7 @@ public class Main {
     public static String globalUser;
 
     public static void main(String[] args) {
-        // Alt + Enter for suggestions
-
+        // ÖNEMLİ!
         loginScreen();
 
     }
@@ -24,13 +23,14 @@ public class Main {
     }
 
     private static void loginScreen() {
+        globalIsAdmin = 3;
         System.out.println("1 - Giriş Yap");
         System.out.println("2 - Kayıt Ol");
         System.out.println("3 - Ayarlar");
         System.out.println("4 - Programı Kapat");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
-        switch(choice) {
+        switch (choice) {
             case 1:
                 login();
                 break;
@@ -45,7 +45,7 @@ public class Main {
         }
     }
 
-    private static void register(){
+    private static void register() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Kullanıcı adınızı giriniz:");
@@ -57,13 +57,11 @@ public class Main {
         System.out.printf("1 - Yönetici olarak kaydet\n2 - Kullanıcı olarak kaydet\nSeçiminizi yapınız : ");
         int choice = scanner.nextInt();
         int isAdmin = 0;
-        if (choice==1) {
-            isAdmin=1;
-        }
-        else if (choice==2) {
-            isAdmin=0;
-        }
-        else {
+        if (choice == 1) {
+            isAdmin = 1;
+        } else if (choice == 2) {
+            isAdmin = 0;
+        } else {
             System.out.println("Geçersiz seçim, tekrar deneyiniz.");
             register();
 
@@ -112,23 +110,49 @@ public class Main {
 
 
     private static void mainMenu() {
-        if (globalIsAdmin==1) {
+        if (globalIsAdmin == 1) {
             admin();
-        }
-        else customer();
+        } else customer();
 
     }
 
     private static void customer() {
         System.out.println("Testing customer");
+        System.out.println("1 - Tüm Uçuşları Göster");
+        System.out.println("2 - Uçuş Ara");
+        System.out.println("3 - Uçuş Yolcu Ol");
+        System.out.println("4 - Destek Mesajı Gönder");
+        System.out.println("9 - Çıkış Yap");
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                break;
+            case 2:
+                searchFlight();
+                break;
+            case 3:
+                addPassenger();
+            case 4:
+                sendMessage();
+                break;
+            case 9:
+                loginScreen();
+                break;
+        }
+
     }
+
     public static void admin() {
         System.out.println("Testing admin.");
         System.out.println("1 - Uçuş Ekle");
         System.out.println("2 - Tüm Uçuşları Göster");
         System.out.println("3 - Uçuş Ara");
         System.out.println("4 - Uçuş Sil");
-        System.out.println("5 - Çıkış Yap");
+        System.out.println("5 - Yolcu Ekle");
+        System.out.println("6 - Yolcu Sil");
+        System.out.println("7 - Destek Mesajlarını Oku");
+        System.out.println("9 - Çıkış Yap");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         switch (choice) {
@@ -145,6 +169,14 @@ public class Main {
                 deleteFlight();
                 break;
             case 5:
+                addPassenger();
+            case 6:
+                deletePassenger();
+                break;
+            case 7:
+                showMessages();
+                break;
+            case 9:
                 loginScreen();
                 break;
 
@@ -153,6 +185,7 @@ public class Main {
                 admin();
         }
     }
+
     static int authenticateUser(String username, String password, int isAdmin) {
         File file = new File("data/users.txt");
         Scanner scanner = null;
@@ -185,43 +218,59 @@ public class Main {
         return 0; // authentication failed
     }
 
-        static class Flight {
-            String flightNumber;
-            String airline;
-            String destination;
-            String departureAirport;
-            String departureTime;
-            String arrivalTime;
-            String status;
-            String gate;
-            String terminal;
-            String aircraftType;
-            public Flight(String flightNumber, String airline, String destination, String departureAirport,
-                          String departureTime, String arrivalTime, String status, String gate, String terminal,
-                          String aircraftType) {
-                this.flightNumber = flightNumber;
-                this.airline = airline;
-                this.destination = destination;
-                this.departureAirport = departureAirport;
-                this.departureTime = departureTime;
-                this.arrivalTime = arrivalTime;
-                this.status = status;
-                this.gate = gate;
-                this.terminal = terminal;
-                this.aircraftType = aircraftType;
-            }
+    static class Flight {
+        String flightNumber;
+        String airline;
+        String destination;
+        String departureAirport;
+        String departureTime;
+        String arrivalTime;
+        String status;
+        String gate;
+        String terminal;
+        String aircraftType;
 
-            @Override
-            public String toString() {
-                return "Flight Number: " + flightNumber + ", Airline: " + airline + ", Destination: " + destination +
-                        ", Departure Airport: " + departureAirport + ", Departure Time: " + departureTime +
-                        ", Arrival Time: " + arrivalTime + ", Status: " + status + ", Gate: " + gate +
-                        ", Terminal: " + terminal + ", Aircraft Type: " + aircraftType;
-            }
-
-
-            // Constructor and other methods
+        public Flight(String flightNumber, String airline, String destination, String departureAirport,
+                      String departureTime, String arrivalTime, String status, String gate, String terminal,
+                      String aircraftType) {
+            this.flightNumber = flightNumber;
+            this.airline = airline;
+            this.destination = destination;
+            this.departureAirport = departureAirport;
+            this.departureTime = departureTime;
+            this.arrivalTime = arrivalTime;
+            this.status = status;
+            this.gate = gate;
+            this.terminal = terminal;
+            this.aircraftType = aircraftType;
         }
+
+
+        @Override
+        public String toString() {
+            return "Flight Number: " + flightNumber + ", Airline: " + airline + ", Destination: " + destination +
+                    ", Departure Airport: " + departureAirport + ", Departure Time: " + departureTime +
+                    ", Arrival Time: " + arrivalTime + ", Status: " + status + ", Gate: " + gate +
+                    ", Terminal: " + terminal + ", Aircraft Type: " + aircraftType;
+        }
+
+        // Constructor and other methods
+    }
+
+    public static class Passenger {
+        private String flightID;
+        private String name;
+        private int age;
+        private String contactInformation;
+
+        public Passenger(String flightID, String name, int age, String contactInformation) {
+            this.flightID = flightID;
+            this.name = name;
+            this.age = age;
+            this.contactInformation = contactInformation;
+        }
+
+    }
 
     static void addFlight() {
         // Implementation to add a flight
@@ -400,4 +449,22 @@ public class Main {
         }
     }
 
+    static void addPassenger() {
+    // UÇUŞ KODU İLE .TXT OLUŞTURUP KULLANICIDAN YOLCU BİLGİLERİ ALINIP DOSYAYA EKLENİLECEK. Örn. 13.txt içinde: flightID,passName,passAge,passContactInfo
+    }
+
+
+    static void sendMessage() {
+        // yöneticilerin okuması için bir mesaj .txt oluşturacak
+        // email gibi
+    }
+
+    static void showMessages() {
+        // yöneticiler gelen mesajları seçip okuyabilecek
+    }
+
+    static void deletePassenger() {
+        // uçuş txt içinde belirli yolcuyu silecek
+    }
 }
+
