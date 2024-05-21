@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         // ÖNEMLİ!
+        System.setProperty("file.encoding", "UTF-8");
         loginScreen();
 
     }
@@ -26,7 +27,6 @@ public class Main {
         System.out.println("═════════════════════════════════════════════");
         System.out.println("1 - Giriş Yap");
         System.out.println("2 - Kayıt Ol");
-        System.out.println("3 - Ayarlar");
         System.out.println("4 - Programı Kapat");
         System.out.println("═════════════════════════════════════════════");
         System.out.println("Seçiminizi yapınız: ");
