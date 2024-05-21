@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 
 public class Main {
-
     //global variables
     public static int globalIsAdmin;
     public static String globalUser;
@@ -24,10 +23,13 @@ public class Main {
 
     private static void loginScreen() {
         globalIsAdmin = 3;
+        System.out.println("═════════════════════════════════════════════");
         System.out.println("1 - Giriş Yap");
         System.out.println("2 - Kayıt Ol");
         System.out.println("3 - Ayarlar");
         System.out.println("4 - Programı Kapat");
+        System.out.println("═════════════════════════════════════════════");
+        System.out.println("Seçiminizi yapınız: ");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         switch (choice) {
@@ -83,6 +85,7 @@ public class Main {
 
     private static void login() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("═════════════════════════════════════════════");
 
         System.out.print("Kullanıcı adını giriniz: ");
         String username = scanner.nextLine();
@@ -100,7 +103,7 @@ public class Main {
             // Assign globalUser to username
             globalUser = username;
             // GİRİŞ BAŞARILI MI TEST
-            System.out.printf("DEBUG -- %s, %d%n", globalUser, globalIsAdmin);
+            //System.out.printf("DEBUG -- %s, %d%n", globalUser, globalIsAdmin);
             mainMenu();
         } else {
             System.out.println("Giriş başarısız, geçersiz bilgiler.");
@@ -110,6 +113,7 @@ public class Main {
 
 
     private static void mainMenu() {
+        System.out.println("Hoşgeldiniz: "+globalUser);
         if (globalIsAdmin == 1) {
             admin();
         } else customer();
@@ -117,42 +121,48 @@ public class Main {
     }
 
     private static void customer() {
-        System.out.println("Testing customer");
+        System.out.println("═════════════════════════════════════════════");
         System.out.println("1 - Tüm Uçuşları Göster");
         System.out.println("2 - Uçuş Ara");
         System.out.println("3 - Uçuş Yolcu Ol");
         System.out.println("4 - Destek Mesajı Gönder");
         System.out.println("9 - Çıkış Yap");
+        System.out.println("═════════════════════════════════════════════");
+        System.out.println("Seçiminizi yapınız: ");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
+                readAndPrintFlights();
                 break;
             case 2:
                 searchFlight();
                 break;
             case 3:
                 addPassenger();
-            case 4:
-                sendMessage();
                 break;
             case 9:
                 loginScreen();
                 break;
+            default:
+                System.out.println("Yanlış seçim yaptınız! Tekrar deneyiniz.");
+                customer();
         }
 
     }
 
     public static void admin() {
-        System.out.println("Testing admin.");
+        System.out.println("═════════════════════════════════════════════");
         System.out.println("1 - Uçuş Ekle");
         System.out.println("2 - Tüm Uçuşları Göster");
         System.out.println("3 - Uçuş Ara");
         System.out.println("4 - Uçuş Sil");
         System.out.println("5 - Yolcu Ekle");
         System.out.println("6 - Yolcu Sil");
-        System.out.println("7 - Destek Mesajlarını Oku");
+        System.out.println("7 - Yolcu Görüntüle");
         System.out.println("9 - Çıkış Yap");
+        System.out.println("═════════════════════════════════════════════");
+        System.out.println("Seçiminizi yapınız.");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         switch (choice) {
@@ -174,7 +184,7 @@ public class Main {
                 deletePassenger();
                 break;
             case 7:
-                showMessages();
+                showPassenger();
                 break;
             case 9:
                 loginScreen();
@@ -276,34 +286,34 @@ public class Main {
         // Implementation to add a flight
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Flight Number: ");
+        System.out.print("Uçuş Kodu Giriniz: ");
         String flightNumber = scanner.nextLine();
 
-        System.out.print("Airline: ");
+        System.out.print("Havayolu Şirketi: ");
         String airline = scanner.nextLine();
 
-        System.out.print("Destination: ");
+        System.out.print("Varış Noktası: ");
         String destination = scanner.nextLine();
 
-        System.out.print("Departure Airport: ");
+        System.out.print("Kalkış Havalimanı: ");
         String departureAirport = scanner.nextLine();
 
-        System.out.print("Departure Time (YYYY-MM-DD HH:MM): ");
+        System.out.print("Hareket Saati: (YYYY-AA-GG SS:DD): ");
         String departureTime = scanner.nextLine();
 
-        System.out.print("Arrival Time (YYYY-MM-DD HH:MM): ");
+        System.out.print("Varış Zamanı: (YYYY-AA-GG SS:DD): ");
         String arrivalTime = scanner.nextLine();
 
-        System.out.print("Status: ");
+        System.out.print("Durum: ");
         String status = scanner.nextLine();
 
-        System.out.print("Gate: ");
+        System.out.print("Kapı: ");
         String gate = scanner.nextLine();
 
         System.out.print("Terminal: ");
         String terminal = scanner.nextLine();
 
-        System.out.print("Aircraft Type: ");
+        System.out.print("Uçak Tipi ");
         String aircraftType = scanner.nextLine();
 
         Flight newFlight = new Flight(flightNumber, airline, destination, departureAirport, departureTime,
@@ -315,12 +325,12 @@ public class Main {
             // Create a new file
             File file = new File(filename);
             if (file.createNewFile()) {
-                System.out.println("File created: " + filename);
+                System.out.println("Dosya oluşturuldu: " + filename);
             } else {
-                System.out.println("File already exists: " + filename);
+                System.out.println("Dosya zaten mevcut: " + filename);
             }
         } catch (IOException e) {
-            System.err.println("Error creating file: " + e.getMessage());
+            System.err.println("Dosya oluşturalamadı: " + e.getMessage());
         }
         // Write the flight information to the file
         writeFlightToFile(newFlight);
@@ -333,10 +343,11 @@ public class Main {
                     flight.departureAirport, flight.departureTime, flight.arrivalTime, flight.status,
                     flight.gate, flight.terminal, flight.aircraftType);
             writer.println(flightData);
-            System.out.println("Flight information saved successfully!");
+            System.out.println("Uçuş bilgileri başarıyla kaydedildi!");
         } catch (IOException e) {
-            System.out.println("Error occurred while writing flight information to file: " + e.getMessage());
+            System.out.println("Uçuş bilgileri kaydedilirken bir sorun oluştu: " + e.getMessage());
         }
+        procComplete();
     }
 
     static void readAndPrintFlights() {
@@ -367,6 +378,8 @@ public class Main {
         } catch (FileNotFoundException e) {
             System.out.println("Dosya bulunamadı: " + e.getMessage());
         }
+
+        procComplete();
     }
 
 
@@ -379,7 +392,7 @@ public class Main {
     static void searchFlight() {
         try (Scanner fileScanner = new Scanner(new File("data/flights.txt"))) {
             Scanner inputScanner = new Scanner(System.in);
-            System.out.print("Enter search keyword: ");
+            System.out.print("Aradığınız anahtar kelimeyi giriniz: ");
             String searchKeyword = inputScanner.nextLine().trim();
 
             boolean found = false;
@@ -393,11 +406,13 @@ public class Main {
             }
 
             if (!found) {
-                System.out.println("No flights found with the given keyword.");
+                System.out.println("Bu anahtar kelime ile bir uçuş bulunamadı.");
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
+            System.out.println("Dosya bulunamadı: " + e.getMessage());
         }
+
+        procComplete();
     }
 
     static void deleteFlight() {
@@ -433,38 +448,137 @@ public class Main {
             if (found) {
                 if (inputFile.delete()) {
                     if (!tempFile.renameTo(inputFile)) {
-                        System.out.println("Error replacing file.");
+                        System.out.println("Dosya değiştirirken sorun oluştu.");
                         return;
                     }
                 } else {
-                    System.out.println("Error deleting file.");
+                    System.out.println("Dosya silinirken sorun oluştu.");
                     return;
                 }
-                System.out.println("Flight with code " + flightCode + " deleted successfully.");
+                System.out.println(flightCode + " kodlu uçuş başarıyla silindi.");
             } else {
-                System.out.println("Flight with code " + flightCode + " not found.");
+                System.out.println(flightCode + " kodlu uçuş bulunamadı.");
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
+        procComplete();
     }
 
     static void addPassenger() {
     // UÇUŞ KODU İLE .TXT OLUŞTURUP KULLANICIDAN YOLCU BİLGİLERİ ALINIP DOSYAYA EKLENİLECEK. Örn. 13.txt içinde: flightID,passName,passAge,passContactInfo
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Uçuş Kodunu Giriniz: ");
+        String flightID = scanner.nextLine();
+
+        System.out.print("Yolcu İsmi: ");
+        String name = scanner.nextLine();
+
+        int age = 0;
+        boolean validAge = false;
+        while (!validAge) {
+            try {
+                System.out.print("Yolcu Yaşı: ");
+                age = Integer.parseInt(scanner.nextLine());
+                validAge = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Lütfen doğru yaş giriniz.");
+            }
+        }
+
+        System.out.print("Yolcu iletişim bilgileri giriniz: (Telefon No, ÖRN: +905388413431) ");
+        String contactInformation = scanner.nextLine();
+
+        Passenger passenger = new Passenger(flightID, name, age, contactInformation);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/"+flightID + ".txt", true))) {
+            String passengerInfo = flightID + "," + name + "," + age + "," + contactInformation;
+            writer.write(passengerInfo);
+            writer.newLine();
+            System.out.println("Yolcu bilgileri dosyaya başarıyla eklendi.");
+        } catch (IOException e) {
+            System.out.println("Yolcu bilgisi kaydedilirken hata oluştu: " + e.getMessage());
+        }
+
+        procComplete();
     }
 
-
-    static void sendMessage() {
-        // yöneticilerin okuması için bir mesaj .txt oluşturacak
-        // email gibi
-    }
-
-    static void showMessages() {
-        // yöneticiler gelen mesajları seçip okuyabilecek
+    static void showPassenger(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Yolcularını görmek istediğiniz uçuş kodunu giriniz: ");
+        int flightID = scanner.nextInt();
+        try (BufferedReader reader = new BufferedReader(new FileReader("data/" + flightID + ".txt"))) {
+            System.out.println("Passenger Information for Flight ID: " + flightID);
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                String[] passengerDetails = currentLine.split(",");
+                if (passengerDetails.length == 4) {
+                    System.out.println("Flight ID: " + passengerDetails[0] +
+                            ", Name: " + passengerDetails[1] +
+                            ", Age: " + passengerDetails[2] +
+                            ", Contact Information: " + passengerDetails[3]);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(flightID + "kodlu uçuşla ilgili bilgi bulunamadı.");
+        } catch (IOException e) {
+            System.out.println("Yolcu bilgisi gösterirken hata oluştu: " + e.getMessage());
+        }
+        procComplete();
     }
 
     static void deletePassenger() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Uçuş Kodunu Giriniz: ");
+        String flightID = scanner.nextLine();
+        System.out.println("Silmek İstediğiniz Yolcunun İletişim Bilgisini Giriniz: ");
+        String contactInfo = scanner.nextLine();
+
         // uçuş txt içinde belirli yolcuyu silecek
+        File inputFile = new File("data/" + flightID + ".txt");
+        File tempFile = new File("data/" + flightID + "_temp.txt");
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String currentLine;
+            boolean found = false;
+
+            while ((currentLine = reader.readLine()) != null) {
+                String[] passengerDetails = currentLine.split(",");
+                if (passengerDetails.length == 4 && passengerDetails[3].equals(contactInfo)) {
+                    found = true;
+                    continue; // Skip this line
+                }
+                writer.write(currentLine);
+                writer.newLine();
+            }
+
+            if (!found) {
+                System.out.println(contactInfo + " iletişim bilgisiyle " + flightID + "kodlu uçuşta yolcu bulunamadı.");
+            } else {
+                System.out.println(contactInfo + " iletişim bilgisiyle " + flightID + "kodlu uçuştaki yolcu BAŞARIYLA silindi.");
+            }
+
+        } catch (IOException e) {
+            System.out.println("Dosya işlenirken hata oluştu: " + e.getMessage());
+        }
+
+        // Replace the original file with the updated file
+        if (!inputFile.delete()) {
+            System.out.println("Orijinal dosya değiştirilemedi.");
+        } else if (!tempFile.renameTo(inputFile)) {
+            System.out.println("Geçiçi dosya yeniden adlandırılamadı.");
+        }
+        procComplete();
+    }
+
+    static void procComplete() {
+        System.out.print("═════════════════════════════════════════════\nİşlem Tamamlandı\nAna menüye dönmek için herhangi bir tuşa basınız.\n═════════════════════════════════════════════\n");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        mainMenu();
     }
 }
 
